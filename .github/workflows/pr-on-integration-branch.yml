@@ -76,7 +76,7 @@ jobs:
      
  # If no user token, use default
       - name: 'Write Default Token'
-         run: "echo ${{ secrets.JWT_KEY }} > token.txt"
+         run:  echo ${{ secrets.JWT_KEY }} > token.txt
 
      # Auth to devhub with stored token
       - name: 'Auth with DevHub'
