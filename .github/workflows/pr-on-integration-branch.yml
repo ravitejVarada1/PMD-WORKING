@@ -112,14 +112,14 @@ jobs:
             # If the env variable does not equal 'all', we know that there is a list of
             # tests that can be run
             - name: 'Check-only deploy delta changes - run specified tests'
-              if: ${{ secrets.RUN_TESTS != 'all' }}
+              if: ${{ env.RUN_TESTS != 'all' }}
               run: |
-                  echo ${{secrets.RUN_TESTS}}
+                  echo ${{env.RUN_TESTS}}
                   sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
 
             # We do a check-only deploy and we run all tests
             - name: 'Check-only deploy delta changes - run all tests'
-              if: ${{ secrets.RUN_TESTS == 'all' }}
+              if: ${{ env.RUN_TESTS == 'all' }}
               run: |
                   sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunLocalTests  --json
 
