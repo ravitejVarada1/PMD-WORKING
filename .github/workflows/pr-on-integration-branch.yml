@@ -82,11 +82,11 @@ jobs:
               run: sfdx plugins:install @salesforce/sfdx-scanner
 
 
-            # Authenticate to    org using the URL stored in the text file
+            # Authenticate to org using the URL stored in the text file
             - name: 'Authenticate to Integration Org'    
               run: | 
-                    echo "${{ env.JWT_KEY }}" > server.key
-                    sfdx force:auth:jwt:grant --clientid 3MVG9ZF4bs_.MKuhrSgLlZoTiRjxRmOJY4TKtRvpRhSYyeCyaVb7rFssarWcUTtQPnn7ICi2c2CSx.13PS9hT --jwtkeyfile server.key --username ravitej@varada.us.dev --instanceurl https://login.salesforce.com
+                    echo "${{ secret.JWT_KEY }}" > server.key
+                    sfdx force:auth:jwt:grant --clientid=${{ secret.CLIENT_KEY  }} --jwtkeyfile=server.key --username=${{ secret.USER_NAME }} --setdefaultdevhubusername --setalias devjwt
 
             # We use SFDX Git Delta to create a directory with only the metadata that has changed, this allows us
             # to deploy only those changes, as opposed to deploying the entire branch. This helps reducing deployment times
@@ -112,14 +112,14 @@ jobs:
             # If the env variable does not equal 'all', we know that there is a list of
             # tests that can be run
             - name: 'Check-only deploy delta changes - run specified tests'
-              if: ${{ env.RUN_TESTS != 'all' }}
+              if: ${{ secret.RUN_TESTS != 'all' }}
               run: |
-                  echo ${{env.RUN_TESTS}}
-                  sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
+                  echo ${{secret.RUN_TESTS}}
+                  sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{secret.APEX_TESTS}} --json
 
             # We do a check-only deploy and we run all tests
             - name: 'Check-only deploy delta changes - run all tests'
-              if: ${{ env.RUN_TESTS == 'all' }}
+              if: ${{ secret.RUN_TESTS == 'all' }}
               run: |
                   sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunLocalTests  --json
 
