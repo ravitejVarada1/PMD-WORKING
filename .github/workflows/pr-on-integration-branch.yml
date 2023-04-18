@@ -82,7 +82,7 @@ jobs:
               run: sfdx plugins:install @salesforce/sfdx-scanner
 
 
-            # Authenticate to org using the URL stored in the text file
+            # Authenticate to    org using the URL stored in the text file
             - name: 'Authenticate to Integration Org'    
               run: | 
                     echo "${{ env.JWT_KEY }}" > server.key
