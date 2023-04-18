@@ -86,7 +86,7 @@ jobs:
             - name: 'Authenticate to Integration Org'    
               run: | 
                     echo "${{ env.JWT_KEY }}" > server.key
-                    sfdx force:auth:jwt:grant --clientid=${{ env.CLIENT_KEY  }} --jwtkeyfile=server.key --username=${{ env.USER_NAME }} --setdefaultdevhubusername --setalias devjwt
+                    sfdx force:auth:jwt:grant --clientid 3MVG9ZF4bs_.MKuhrSgLlZoTiRjxRmOJY4TKtRvpRhSYyeCyaVb7rFssarWcUTtQPnn7ICi2c2CSx.13PS9hT --jwtkeyfile server.key --username ravitej@varada.us.dev --instanceurl https://login.salesforce.com
 
             # We use SFDX Git Delta to create a directory with only the metadata that has changed, this allows us
             # to deploy only those changes, as opposed to deploying the entire branch. This helps reducing deployment times
