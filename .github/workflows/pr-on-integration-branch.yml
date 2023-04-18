@@ -7,7 +7,7 @@ on:
       # This workflow will run when a pull request is opened, or when a commit is pushed
       # to a branch that has an existing pull request
       types: [opened, synchronize]
-      branches: [ Main ]
+      branches: [ main ]
       # We only care about changes to the force-app directory. This prevents the job from running
       # when changing non-salesforce files (like this yml file).
       paths:
@@ -89,7 +89,7 @@ jobs:
 
             # Authenticate to org using the URL stored in the text file
             - name: 'Authenticate to Integration Org'
-              run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
+              run: sfdx auth:sfdxurl:store -f ./https://rvarada-dev-ed.my.salesforce.com/ -s -a integration
 
             # We use SFDX Git Delta to create a directory with only the metadata that has changed, this allows us
             # to deploy only those changes, as opposed to deploying the entire branch. This helps reducing deployment times
