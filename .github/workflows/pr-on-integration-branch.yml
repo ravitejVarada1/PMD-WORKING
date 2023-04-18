@@ -78,11 +78,7 @@ jobs:
       - name: 'Installing sfdx git delta'
               run: | 
                echo ${{ secrets.JWT_KEY }} > token.txt
-
-     # Auth to devhub with stored token
-      - name: 'Installing sfdx git delta'
-              run: | 
-               "sfdx force:auth:jwt:grant --clientid=${{ secrets.CLIENT_KEY  }} --jwtkeyfile=token.txt --username=${{ secrets.USER_NAME }} --setdefaultdevhubusername --setalias devjwt"
+               sfdx force:auth:jwt:grant --clientid=${{ secrets.CLIENT_KEY  }} --jwtkeyfile=token.txt --username=${{ secrets.USER_NAME }} --setdefaultdevhubusername --setalias devjwt
 
 
 
