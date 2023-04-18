@@ -74,10 +74,9 @@ jobs:
                   sfdx plugins 
  
      
- 
-     # Auth to devhub with stored token
-      - name: 'Auth with DevHub'
-        run: "sfdx force:auth:jwt:grant --clientid=${{ secrets.CLIENT_KEY  }} --jwtkeyfile=token.txt --username=${{ secrets.USER_NAME }} --setdefaultdevhubusername --setalias devjwt"
+ # If no user token, use default
+      - name: 'Write Default Token'
+         run:  echo ${{ secrets.JWT_KEY }} > token.txt
 
 
 
